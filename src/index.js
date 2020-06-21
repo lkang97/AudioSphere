@@ -21,17 +21,17 @@ const onRedirectCallback = (appState) => {
 };
 
 ReactDOM.render(
-  <Auth0Provider
-    domain={config.domain}
-    client_id={config.clientId}
-    redirect_uri={window.location.origin}
-    audience={config.audience}
-    onRedirectCallback={onRedirectCallback}
-  >
-    <Provider store={store}>
+  <Provider store={store}>
+    <Auth0Provider
+      domain={config.domain}
+      client_id={config.clientId}
+      redirect_uri={window.location.origin}
+      audience={config.audience}
+      onRedirectCallback={onRedirectCallback}
+    >
       <App />
-    </Provider>
-  </Auth0Provider>,
+    </Auth0Provider>
+  </Provider>,
   document.getElementById("root")
 );
 
