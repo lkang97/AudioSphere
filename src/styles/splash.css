@@ -1,0 +1,36 @@
+#splash-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+#splash-stepper {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+}
+
+div.MuiMobileStepper-dot {
+  width: 10px;
+  height: 10px;
+  margin: 0 2px;
+  border-radius: 50%;
+  background-color: darkgrey;
+}
+
+div.MuiMobileStepper-dotActive {
+  background-color: #1bbde5;
+}
+
+.splash-img-text {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.splash-img-container {
+  position: relative;
+  text-align: center;
+}

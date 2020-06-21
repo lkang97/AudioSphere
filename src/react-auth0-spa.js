@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
 import { api } from "./config";
-import { useDispatch } from "react-redux";
-import { setUserId } from "./store/state";
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
@@ -19,8 +17,6 @@ export const Auth0Provider = ({
   const [auth0Client, setAuth0] = useState();
   const [loading, setLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const initAuth0 = async () => {
@@ -53,7 +49,6 @@ export const Auth0Provider = ({
         //fetch path on user on the backend
         const response = await res.json();
         setUser({ ...user, userId: response.userId });
-        dispatch(setUserId(response.userId));
       }
 
       setLoading(false);

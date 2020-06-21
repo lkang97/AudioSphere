@@ -25,5 +25,8 @@ export default function reducer(state = initialState, action) {
       newState.songs = action.songs;
       return newState;
     }
+    default: {
+      return state;
+    }
   }
 }

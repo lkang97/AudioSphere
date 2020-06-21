@@ -1,3 +1,14 @@
 .navText {
   color: white;
 }
+
+#logo-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#audiosphere-logo {
+  height: 40px;
+  padding-right: 5px;
+}

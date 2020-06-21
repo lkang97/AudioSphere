@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth0 } from "../react-auth0-spa";
 import { Link } from "react-router-dom";
+import "../styles/navbar.css";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { makeStyles, fade } from "@material-ui/core/styles";
+import logo from "../images/logo.gif";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     backgroundColor: "black",
-    borderBottom: "1px solid #5f2f3a",
+    borderBottom: "1px solid #1bbde5",
   },
   search: {
     position: "relative",
@@ -76,9 +78,12 @@ const useStyles = makeStyles((theme) => ({
   navText: {
     color: "white",
     "&:hover": {
-      color: "#5f2f3a",
+      color: "#1bbde5",
     },
     fontSize: 16,
+  },
+  logo: {
+    height: "17",
   },
 }));
 
@@ -91,9 +96,12 @@ const NavBar = () => {
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar style={{ justifyContent: "space-between" }}>
-          <Typography className={classes.title} variant="h6" noWrap>
-            AudioSphere
-          </Typography>
+          <div id="logo-container">
+            <img src={logo} alt="logo" id="audiosphere-logo" />
+            <Typography className={classes.title} variant="h6" noWrap>
+              AudioSphere
+            </Typography>
+          </div>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

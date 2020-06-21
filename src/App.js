@@ -4,8 +4,9 @@ import { useAuth0 } from "./react-auth0-spa";
 
 // Import the React Router components, and the Profile page component
 import { Router, Route, Switch } from "react-router-dom";
-import Profile from "./components/Profile";
+import Profile from "../src/components/Profile";
 import history from "./utils/history";
+import Splash from "../src/components/Splash";
 
 // Import the PrivateRoute component
 import PrivateRoute from "./components/PrivateRoute";
@@ -27,7 +28,7 @@ function App() {
           <NavBar />
         </header>
         <Switch>
-          <Route path="/" exact />
+          <Route path="/" exact component={Splash} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/external-api" component={ExternalApi} />
         </Switch>
