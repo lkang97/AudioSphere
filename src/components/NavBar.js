@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     backgroundColor: "black",
-    // borderBottom: "1px solid #ff7043",
+    borderBottom: "1px solid #5f2f3a",
   },
   search: {
     position: "relative",
@@ -74,7 +74,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   navText: {
-    color: "#5f313a",
+    color: "white",
+    "&:hover": {
+      color: "#5f2f3a",
+    },
+    fontSize: 16,
   },
 }));
 
@@ -86,7 +90,7 @@ const NavBar = () => {
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
+        <Toolbar style={{ justifyContent: "space-between" }}>
           <Typography className={classes.title} variant="h6" noWrap>
             AudioSphere
           </Typography>
@@ -112,7 +116,6 @@ const NavBar = () => {
             </Button>
           )}
 
-          {isAuthenticated && <Button onClick={() => logout()}>Log out</Button>}
           {isAuthenticated && (
             <span>
               <Link to="/">Home</Link>&nbsp;
@@ -120,6 +123,9 @@ const NavBar = () => {
               <Link to="/external-api">
                 <Button className={classes.navText}>External API</Button>
               </Link>
+              <Button className={classes.navText} onClick={() => logout()}>
+                Logout
+              </Button>
             </span>
           )}
         </Toolbar>
