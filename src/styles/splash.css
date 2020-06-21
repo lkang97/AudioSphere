@@ -1,7 +1,8 @@
 #splash-container {
   display: flex;
-  justify-content: center;
-  padding-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15px;
 }
 
 #splash-stepper {
@@ -13,7 +14,7 @@
 div.MuiMobileStepper-dot {
   width: 10px;
   height: 10px;
-  margin: 0 2px;
+  margin: 4px 3px;
   border-radius: 50%;
   background-color: darkgrey;
 }
@@ -33,4 +34,17 @@ div.MuiMobileStepper-dotActive {
 .splash-img-container {
   position: relative;
   text-align: center;
+}
+
+.splash-popular {
+  display: flex;
+  width: 1100px;
+  align-items: center;
+  flex-direction: column;
+}
+
+.popular-header {
+  padding: 20px 0px 10px;
+  color: gray;
+  font-size: 20px;
 }

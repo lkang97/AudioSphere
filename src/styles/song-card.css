@@ -1,0 +1,29 @@
+.songs-container {
+  display: flex;
+  flex-direction: row;
+}
+
+div.MuiCardContent-root {
+  padding: 0px 5px 3px;
+}
+
+.single-song-card {
+  padding: 15px;
+}
+
+button.song-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+
+button.song-play-button :hover {
+  color: white;
+}
+
+.song-img-area {
+  position: "relative";
+  height: 170px;
+  width: 170px;
+}

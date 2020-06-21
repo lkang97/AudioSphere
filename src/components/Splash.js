@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSongs } from "../store/state";
+
 import "../styles/splash.css";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import MobileStepper from "@material-ui/core/MobileStepper";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import img1 from "../images/splash-img1.jpg";
 import img2 from "../images/splash-img2.jpg";
+import { api } from "../config";
 
+import SongCard from "./SongCard";
+
+// Set up autoplay on carousel using React swipeable views
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
+// Define images used on carousel
 const tutorialSteps = [
   {
     label: "Splash image 1",
@@ -38,14 +44,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Splash = () => {
+  const dispatch = useDispatch();
+  const songs = useSelector((state) => state.songs);
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = tutorialSteps.length;
 
+  // Changes the image on a swipe
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
+
+  useEffect(() => {
+    const loadSongs = async () => {
+      try {
+        const res = await fetch(`${api}/songs`);
+        if (!res.ok) throw res;
+        const response = await res.json();
+        dispatch(setSongs(response));
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    loadSongs();
+  }, [dispatch]);
 
   return (
     <div id="splash-container">
@@ -84,6 +107,16 @@ const Splash = () => {
           activeStep={activeStep}
           id="splash-stepper"
         />
+      </div>
+      <div className="splash-popular">
+        <div className="popular-header">
+          Here's what people are listening to on AudioSphere:
+        </div>
+        <div className="songs-container">
+          {songs.map((song) => {
+            return <SongCard song={song} key={song.id} />;
+          })}
+        </div>
       </div>
     </div>
   );
