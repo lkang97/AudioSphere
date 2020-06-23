@@ -11,6 +11,8 @@ import Splash from "../src/components/Splash";
 // Import the PrivateRoute component
 import PrivateRoute from "./components/PrivateRoute";
 import ExternalApi from "./components/ExternalApi";
+import Upload from "./components/Upload";
+
 import "./styles/index.css";
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
           <Route path="/" exact component={Splash} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/external-api" component={ExternalApi} />
+          <PrivateRoute path="/upload" component={Upload} />
         </Switch>
       </Router>
     </div>

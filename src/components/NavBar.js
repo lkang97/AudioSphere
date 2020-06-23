@@ -128,8 +128,11 @@ const NavBar = () => {
             <span>
               <Link to="/">Home</Link>&nbsp;
               <Link to="/profile">Profile</Link>
-              <Link to="/external-api">
+              {/* <Link to="/external-api">
                 <Button className={classes.navText}>External API</Button>
+              </Link> */}
+              <Link to="/upload">
+                <Button className={classes.navText}>Upload</Button>
               </Link>
               <Button className={classes.navText} onClick={() => logout()}>
                 Logout
