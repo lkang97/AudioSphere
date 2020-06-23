@@ -1,5 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useAuth0 } from "../react-auth0-spa";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -24,11 +26,18 @@ const useStyles = makeStyles({
 });
 
 const SongCard = ({ song }) => {
+  const { user, loading } = useAuth0();
+
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  // Set the current playing song in the state
   const handleClick = () => {
-    dispatch(setCurrentSong(song.title));
+    if (user) {
+      dispatch(setCurrentSong(song.title));
+    } else {
+      alert("Please sign in to listen to song.");
+    }
   };
 
   return (
@@ -36,11 +45,7 @@ const SongCard = ({ song }) => {
       <Card className={classes.root}>
         <CardActionArea>
           <div className="song-img-area">
-            <CardMedia
-              className={classes.media}
-              image={img1}
-              title="Contemplative Reptile"
-            />
+            <CardMedia className={classes.media} image={img1} />
             <IconButton
               className="song-play-button"
               style={{ backgroundColor: "blue" }}
