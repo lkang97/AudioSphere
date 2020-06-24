@@ -53,8 +53,6 @@ const Upload = () => {
   };
 
   const handleImage = async (e) => {
-    const formData = new FormData();
-    formData.append("file", e.target.files[0]);
     setFile(e.target.files[0]);
   };
 
@@ -74,6 +72,8 @@ const Upload = () => {
     e.preventDefault();
 
     const token = await getTokenSilently();
+    const formData = new FormData();
+    formData.append("file", file);
 
     const imgRes = await fetch(`${api}/upload`, {
       method: "POST",
@@ -83,7 +83,7 @@ const Upload = () => {
       body: formData,
     });
     if (imgRes.ok) {
-      const imgUrl = await response.json();
+      const imgUrl = await imgRes.json();
       setImageUrl(imgUrl);
 
       const uploadRes = await fetch(`${api}/songs`, {
@@ -97,10 +97,13 @@ const Upload = () => {
           description: songDesc,
           image_url: imageUrl,
           song_url: songUrl,
-          // Need to grab user_id still
           created_at: new Date(),
         }),
       });
+
+      if (uploadRes.ok) {
+        const songObj = await uploadRes.json();
+      }
     }
   };
 
