@@ -12,3 +12,9 @@
   align-items: center;
   border-radius: 5px;
 }
+
+.upload-form .upload-song-details {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
