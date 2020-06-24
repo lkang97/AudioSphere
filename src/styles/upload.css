@@ -18,3 +18,16 @@
   flex-direction: column;
   padding: 10px;
 }
+
+.image-container {
+  display: flex;
+  flex-direction: "row";
+  justify-content: "center";
+  padding: 10px;
+  align-items: center;
+}
+
+/* .image-preview #image-icon {
+  width: 150px;
+  height: 150px;
+} */

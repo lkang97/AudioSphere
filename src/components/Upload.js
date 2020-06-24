@@ -11,10 +11,20 @@ import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import ImageIcon from "@material-ui/icons/Image";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
+import { makeStyles } from "@material-ui/core/styles";
 
 import "../styles/upload.css";
 
+const useStyles = makeStyles((theme) => ({
+  imagePreview: {
+    width: 150,
+    height: 150,
+    marginRight: 15,
+  },
+}));
+
 const Upload = () => {
+  const classes = useStyles();
   const { user, getTokenSilently } = useAuth0();
   const [songUrl, setSongUrl] = useState(null);
   const [songTitle, setSongTitle] = useState(null);
@@ -46,20 +56,6 @@ const Upload = () => {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
     setFile(e.target.files[0]);
-
-    // const token = await getTokenSilently();
-
-    // const response = await fetch(`${api}/upload`, {
-    //   method: "POST",
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    //   body: formData,
-    // });
-    // if (response.ok) {
-    //   const imgUrl = await response.json();
-    //   setImageUrl(imgUrl);
-    // }
   };
 
   const handleTitle = async (e) => {
@@ -74,11 +70,45 @@ const Upload = () => {
     setSongDesc(e.target.value);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const token = await getTokenSilently();
+
+    const imgRes = await fetch(`${api}/upload`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+    if (imgRes.ok) {
+      const imgUrl = await response.json();
+      setImageUrl(imgUrl);
+
+      const uploadRes = await fetch(`${api}/songs`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title: songTitle,
+          genre: songGenre,
+          description: songDesc,
+          image_url: imageUrl,
+          song_url: songUrl,
+          // Need to grab user_id still
+          created_at: new Date(),
+        }),
+      });
+    }
+  };
+
   return (
     <div className="upload-container">
       <div className="dnd-container">
         <h2>Drag and drop your audio file here</h2>
-        <form className="upload-form">
+        <form className="upload-form" onSubmit={handleSubmit}>
           <FormControl>
             <Button className="upload-button" variant="contained">
               <input
@@ -93,17 +123,22 @@ const Upload = () => {
               </label>
             </Button>
           </FormControl>
-          <div>
-            <Card>
+          <div className="image-container">
+            <Card className={classes.imagePreview}>
               {file ? (
-                <CardMedia>
-                  <img src={URL.createObjectURL(file)} alt="preview" />
+                <CardMedia className={classes.imagePreview}>
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt="preview"
+                    width="100%"
+                    height="auto"
+                  />
                 </CardMedia>
               ) : (
-                <ImageIcon color="primary" />
+                <ImageIcon className={classes.imagePreview} color="primary" />
               )}
             </Card>
-            <IconButton>
+            <IconButton style={{ height: 50 }}>
               <input
                 accept="image/*"
                 style={{ display: "none" }}
@@ -143,6 +178,11 @@ const Upload = () => {
           {/* ) : (
             <div></div>
           )} */}
+          <div>
+            <Button color="primary" variant="contained" type="submit">
+              Submit
+            </Button>
+          </div>
         </form>
       </div>
     </div>
