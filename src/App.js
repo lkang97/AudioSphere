@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "./components/NavBar";
+import MusicPlayer from "./components/MusicPlayer";
 import { useAuth0 } from "./react-auth0-spa";
 
 // Import the React Router components, and the Profile page component
@@ -35,6 +36,9 @@ function App() {
           <PrivateRoute path="/external-api" component={ExternalApi} />
           <PrivateRoute path="/upload" component={Upload} />
         </Switch>
+        <footer>
+          <MusicPlayer />
+        </footer>
       </Router>
     </div>
   );
