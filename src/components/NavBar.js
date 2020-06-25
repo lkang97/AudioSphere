@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "../react-auth0-spa";
 import { Link } from "react-router-dom";
 import "../styles/navbar.css";
@@ -9,6 +9,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import IconButton from "@material-ui/core/IconButton";
+import SettingsIcon from "@material-ui/icons/Settings";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import logo from "../images/logo.gif";
 
@@ -90,8 +94,32 @@ const useStyles = makeStyles((theme) => ({
 const NavBar = () => {
   const classes = useStyles();
 
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const isMenuOpen = Boolean(anchorEl);
 
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const menuId = "primary-search-account-menu";
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={() => logout()}>Log out</MenuItem>
+    </Menu>
+  );
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
@@ -127,21 +155,29 @@ const NavBar = () => {
           {isAuthenticated && (
             <span>
               <Link to="/">Home</Link>&nbsp;
-              <Link to="/profile">Profile</Link>
               {/* <Link to="/external-api">
                 <Button className={classes.navText}>External API</Button>
               </Link> */}
               <Link to="/upload">
                 <Button className={classes.navText}>Upload</Button>
               </Link>
-              <Button className={classes.navText} onClick={() => logout()}>
-                Logout
-              </Button>
+              <Link to="/profile">
+                <Button className={classes.navText}>{user.nickname}</Button>
+              </Link>
+              <IconButton
+                color="inherit"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+              >
+                <SettingsIcon />
+              </IconButton>
             </span>
           )}
         </Toolbar>
       </AppBar>
       <Toolbar />
+      {renderMenu}
     </div>
   );
 };

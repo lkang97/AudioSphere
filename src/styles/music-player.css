@@ -9,6 +9,9 @@
 
 .song-slider {
   width: 500px;
+  display: flex;
+  align-items: center;
+  padding: 0px 0px 10px;
 }
 
 .song-actions {
@@ -26,4 +29,16 @@
 .song-user {
   color: darkgray;
   font-size: 14px;
+}
+
+.song-duration {
+  display: flex;
+  margin: 0px 12px 2px;
+  color: darkgray;
+  font-size: 13px;
+  width: 23px;
+}
+
+.song-info {
+  width: 180px;
 }

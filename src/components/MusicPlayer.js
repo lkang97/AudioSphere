@@ -27,10 +27,19 @@ const useStyles = makeStyles((theme) => ({
     top: "auto",
     bottom: 0,
     backgroundColor: "black",
+    borderTop: "1px solid darkgray",
   },
   toolBar: {
     display: "flex",
     justifyContent: "space-between",
+  },
+  buttons: {
+    color: "lightgray",
+    margin: "8px 10px 0px",
+    padding: 0,
+  },
+  playBtn: {
+    fontSize: 35,
   },
 }));
 
@@ -66,35 +75,39 @@ const MusicPlayer = () => {
     <div className="song-bar-container">
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolBar}>
-          <div className="song-info">
+          <div>
             {currentSong ? (
-              <div>
+              <div className="song-info">
                 <div className="song-title">{currentSong.title}</div>
                 <div className="song-user">{currentSong.user.nickname}</div>
               </div>
             ) : (
-              <div></div>
+              <div className="song-info"></div>
             )}
           </div>
           <div className="song-actions">
             <div>
-              <IconButton>
+              <IconButton className={classes.buttons}>
                 <SkipPreviousIcon />
               </IconButton>
-              <IconButton>
+              <IconButton className={classes.buttons}>
                 {isPlaying ? (
-                  <PauseCircleOutlineIcon />
+                  <PauseCircleOutlineIcon className={classes.playBtn} />
                 ) : (
-                  <PlayCircleOutlineIcon />
+                  <PlayCircleOutlineIcon className={classes.playBtn} />
                 )}
               </IconButton>
-              <IconButton>
+              <IconButton className={classes.buttons}>
                 <SkipNextIcon />
               </IconButton>
             </div>
             <div className="song-slider">
               <Slider value={duration} onChange={handleSongSlide} />
-              {currentSong ? <div>{duration}</div> : <div>0.00</div>}
+              {currentSong ? (
+                <div className="song-duration">{duration}</div>
+              ) : (
+                <div className="song-duration">--.--</div>
+              )}
             </div>
           </div>
           <div id="song-volume">
