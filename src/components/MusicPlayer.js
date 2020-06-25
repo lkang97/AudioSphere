@@ -40,6 +40,7 @@ const MusicPlayer = () => {
   const dispatch = useDispatch();
   const currentSong = useSelector((state) => state.currentSong);
   const [duration, setDuration] = useState(0);
+  const [currTime, setCurrTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(30);
   const [mute, setMute] = useState(false);
@@ -48,25 +49,44 @@ const MusicPlayer = () => {
     setVolume(newValue);
   };
 
+  const handleSongSlide = (e, newValue) => {
+    setCurrTime(newValue);
+  };
+
+  const handleMetadata = (e) => {
+    const audio = document.getElementById("audio");
+    setDuration(audio.duration);
+  };
+
+  const handleOnPlaying = () => {};
+
+  const handleOnEnded = () => {};
+
   return (
     <div className="song-bar-container">
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolBar}>
           <div className="song-info"></div>
           <div className="song-actions">
-            <IconButton>
-              <SkipPreviousIcon />
-            </IconButton>
-            <IconButton>
-              {currentSong ? (
-                <PlayCircleOutlineIcon />
-              ) : (
-                <PauseCircleOutlineIcon />
-              )}
-            </IconButton>
-            <IconButton>
-              <SkipNextIcon />
-            </IconButton>
+            <div>
+              <IconButton>
+                <SkipPreviousIcon />
+              </IconButton>
+              <IconButton>
+                {isPlaying ? (
+                  <PauseCircleOutlineIcon />
+                ) : (
+                  <PlayCircleOutlineIcon />
+                )}
+              </IconButton>
+              <IconButton>
+                <SkipNextIcon />
+              </IconButton>
+            </div>
+            <div className="song-slider">
+              <Slider value={duration} onChange={handleSongSlide} />
+              {currentSong ? <div>{duration}</div> : <div>0.00</div>}
+            </div>
           </div>
           <div id="song-volume">
             <Grid container spacing={2}>
@@ -87,6 +107,19 @@ const MusicPlayer = () => {
           </div>
         </Toolbar>
       </AppBar>
+      {currentSong ? (
+        <audio
+          id="audio"
+          src={currentSong.song_url}
+          controls
+          controlsList="nodownload"
+          onLoadedMetadata={handleMetadata}
+          onPlaying={handleOnPlaying}
+          onEnded={handleOnEnded}
+        />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

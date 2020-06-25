@@ -34,7 +34,7 @@ const SongCard = ({ song }) => {
   // Set the current playing song in the state
   const handleClick = () => {
     if (user) {
-      dispatch(setCurrentSong(song.title));
+      dispatch(setCurrentSong(song));
     } else {
       alert("Please sign in to listen to song.");
     }

@@ -6,3 +6,13 @@
 #song-volume {
   width: 180px;
 }
+
+.song-slider {
+  width: 500px;
+}
+
+.song-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
