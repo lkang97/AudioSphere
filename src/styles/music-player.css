@@ -16,3 +16,14 @@
   flex-direction: column;
   align-items: center;
 }
+
+.song-title {
+  color: white;
+  font-size: 18px;
+  padding-bottom: 5px;
+}
+
+.song-user {
+  color: darkgray;
+  font-size: 14px;
+}

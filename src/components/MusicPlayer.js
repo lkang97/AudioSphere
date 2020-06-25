@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     top: "auto",
     bottom: 0,
-    backgroundColor: "gray",
+    backgroundColor: "black",
   },
   toolBar: {
     display: "flex",
@@ -38,7 +38,7 @@ const MusicPlayer = () => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const currentSong = useSelector((state) => state.currentSong);
+  const currentSong = useSelector((state) => state.song);
   const [duration, setDuration] = useState(0);
   const [currTime, setCurrTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -66,7 +66,16 @@ const MusicPlayer = () => {
     <div className="song-bar-container">
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolBar}>
-          <div className="song-info"></div>
+          <div className="song-info">
+            {currentSong ? (
+              <div>
+                <div className="song-title">{currentSong.title}</div>
+                <div className="song-user">{currentSong.user.nickname}</div>
+              </div>
+            ) : (
+              <div></div>
+            )}
+          </div>
           <div className="song-actions">
             <div>
               <IconButton>
