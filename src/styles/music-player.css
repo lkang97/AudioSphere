@@ -2,3 +2,7 @@
   bottom: 0;
   height: 40px;
 }
+
+#song-volume {
+  width: 180px;
+}
