@@ -34,10 +34,10 @@ const Upload = () => {
   const [file, setFile] = useState();
 
   const uploadAudio = async (e) => {
-    const formData = new FormData();
+    let formData = new FormData();
     formData.append("file", e.target.files[0]);
 
-    const token = await getTokenSilently();
+    let token = await getTokenSilently();
 
     const response = await fetch(`${api}/upload`, {
       method: "POST",
@@ -71,8 +71,8 @@ const Upload = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = await getTokenSilently();
-    const formData = new FormData();
+    let token = await getTokenSilently();
+    let formData = new FormData();
     formData.append("file", file);
 
     const imgRes = await fetch(`${api}/upload`, {
@@ -82,6 +82,7 @@ const Upload = () => {
       },
       body: formData,
     });
+
     if (imgRes.ok) {
       const imgUrl = await imgRes.json();
       setImageUrl(imgUrl);
@@ -90,13 +91,14 @@ const Upload = () => {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           title: songTitle,
           genre: songGenre,
           description: songDesc,
-          image_url: imageUrl,
-          song_url: songUrl,
+          image_url: imgUrl,
+          song_url: "songUrl",
           created_at: new Date(),
         }),
       });
