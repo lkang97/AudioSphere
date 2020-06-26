@@ -58,10 +58,6 @@ const MusicPlayer = () => {
     setVolume(newValue);
   };
 
-  const handleSongSlide = (e, newValue) => {
-    setCurrTime(newValue);
-  };
-
   const handleMetadata = (e) => {
     let audio = document.getElementById("audio");
     setDuration(audio.duration);
@@ -88,8 +84,16 @@ const MusicPlayer = () => {
     }
   };
 
+  const handleSongSlide = (e, newValue) => {
+    clearInterval(interval.current);
+    let audio = document.getElementById("audio");
+    audio.currentTime = newValue;
+    setCurrTime(newValue);
+  };
+
   const handleOnEnded = () => {};
 
+  const convertTime = () => {};
   const musicPlayer = (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
