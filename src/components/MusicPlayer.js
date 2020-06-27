@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     top: "auto",
     bottom: 0,
     backgroundColor: "black",
-    borderTop: "1px solid darkgray",
+    borderTop: "1px solid #101010",
   },
   toolBar: {
     display: "flex",
@@ -95,71 +95,74 @@ const MusicPlayer = () => {
 
   const convertTime = () => {};
   const musicPlayer = (
-    <AppBar position="fixed" className={classes.appBar}>
-      <Toolbar className={classes.toolBar}>
-        <div>
-          {currentSong ? (
-            <div className="song-info">
-              <div className="song-title">{currentSong.title}</div>
-              <div className="song-user">{currentSong.user.nickname}</div>
-            </div>
-          ) : (
-            <div className="song-info"></div>
-          )}
-        </div>
-        <div className="song-actions">
+    <div>
+      <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar className={classes.toolBar}>
           <div>
-            <IconButton className={classes.buttons}>
-              <SkipPreviousIcon />
-            </IconButton>
-            <IconButton className={classes.buttons} onClick={handlePlayPause}>
-              {isPlaying ? (
-                <PauseCircleOutlineIcon className={classes.playBtn} />
+            {currentSong ? (
+              <div className="song-info">
+                <div className="song-title">{currentSong.title}</div>
+                <div className="song-user">{currentSong.user.nickname}</div>
+              </div>
+            ) : (
+              <div className="song-info"></div>
+            )}
+          </div>
+          <div className="song-actions">
+            <div>
+              <IconButton className={classes.buttons}>
+                <SkipPreviousIcon />
+              </IconButton>
+              <IconButton className={classes.buttons} onClick={handlePlayPause}>
+                {isPlaying ? (
+                  <PauseCircleOutlineIcon className={classes.playBtn} />
+                ) : (
+                  <PlayCircleOutlineIcon className={classes.playBtn} />
+                )}
+              </IconButton>
+              <IconButton className={classes.buttons}>
+                <SkipNextIcon />
+              </IconButton>
+            </div>
+            <div className="song-slider">
+              {currentSong ? (
+                <div className="song-duration">{currTime}</div>
               ) : (
-                <PlayCircleOutlineIcon className={classes.playBtn} />
+                <div className="song-duration">--.--</div>
               )}
-            </IconButton>
-            <IconButton className={classes.buttons}>
-              <SkipNextIcon />
-            </IconButton>
-          </div>
-          <div className="song-slider">
-            {currentSong ? (
-              <div className="song-duration">{currTime}</div>
-            ) : (
-              <div className="song-duration">--.--</div>
-            )}
-            <Slider
-              value={currTime}
-              onChange={handleSongSlide}
-              max={duration}
-            />
-            {currentSong ? (
-              <div className="song-duration">{duration}</div>
-            ) : (
-              <div className="song-duration">--.--</div>
-            )}
-          </div>
-        </div>
-        <div id="song-volume">
-          <Grid container spacing={2}>
-            <Grid item>
-              <VolumeDown />
-            </Grid>
-            <Grid item xs>
               <Slider
-                value={volume}
-                onChange={handleVolChange}
-                aria-labelledby="continuous-slider"
+                value={currTime}
+                onChange={handleSongSlide}
+                max={duration}
               />
+              {currentSong ? (
+                <div className="song-duration">{duration}</div>
+              ) : (
+                <div className="song-duration">--.--</div>
+              )}
+            </div>
+          </div>
+          <div id="song-volume">
+            <Grid container spacing={2}>
+              <Grid item>
+                <VolumeDown />
+              </Grid>
+              <Grid item xs>
+                <Slider
+                  value={volume}
+                  onChange={handleVolChange}
+                  aria-labelledby="continuous-slider"
+                />
+              </Grid>
+              <Grid item>
+                <VolumeUp />
+              </Grid>
             </Grid>
-            <Grid item>
-              <VolumeUp />
-            </Grid>
-          </Grid>
-        </div>
-      </Toolbar>
-    </AppBar>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+    </div>
   );
 
   return (
@@ -168,7 +171,6 @@ const MusicPlayer = () => {
         <>
           <audio
             id="audio"
-            controls
             src={currentSong.song_url}
             // src="https://audiosphere-project.s3.us-east-2.amazonaws.com/01_Gallery.mp3"
             onLoadedMetadata={handleMetadata}

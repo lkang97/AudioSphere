@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useAuth0 } from "../react-auth0-spa";
 
@@ -10,6 +10,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
 
 import img1 from "../images/splash-img1.jpg";
 import "../styles/song-card.css";
@@ -30,11 +31,13 @@ const SongCard = ({ song }) => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [isClicked, setIsClicked] = useState(false);
 
   // Set the current playing song in the state
   const handleClick = () => {
     if (user) {
       dispatch(setCurrentSong(song));
+      setIsClicked(!isClicked);
     } else {
       alert("Please sign in to listen to song.");
     }
@@ -51,7 +54,7 @@ const SongCard = ({ song }) => {
               style={{ backgroundColor: "blue" }}
               onClick={handleClick}
             >
-              <PlayArrowIcon />
+              {isClicked ? <PauseCircleFilledIcon /> : <PlayArrowIcon />}
             </IconButton>
           </div>
           <CardContent>

@@ -14,21 +14,25 @@ import Menu from "@material-ui/core/Menu";
 import IconButton from "@material-ui/core/IconButton";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { makeStyles, fade } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
 import logo from "../images/logo.gif";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    minHeight: 50,
   },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block",
     },
+    color: "#003059",
   },
   appBar: {
     backgroundColor: "black",
-    borderBottom: "1px solid #1bbde5",
+    borderBottom: "1px solid #003059",
+    padding: 0,
   },
   search: {
     position: "relative",
@@ -82,12 +86,15 @@ const useStyles = makeStyles((theme) => ({
   navText: {
     color: "white",
     "&:hover": {
-      color: "#1bbde5",
+      color: "#003059",
     },
     fontSize: 16,
   },
   logo: {
     height: "17",
+  },
+  divider: {
+    backgroundColor: "#003059",
   },
 }));
 
@@ -153,17 +160,39 @@ const NavBar = () => {
           )}
 
           {isAuthenticated && (
-            <span>
+            <div className="nav-actions">
               <Link to="/">Home</Link>&nbsp;
               {/* <Link to="/external-api">
                 <Button className={classes.navText}>External API</Button>
               </Link> */}
-              <Link to="/upload">
-                <Button className={classes.navText}>Upload</Button>
-              </Link>
-              <Link to="/profile">
-                <Button className={classes.navText}>{user.nickname}</Button>
-              </Link>
+              <Divider
+                className={classes.divider}
+                orientation="vertical"
+                flexItem
+              />
+              <div className="nav-button">
+                <Link
+                  style={{ textDecoration: "none", borderRight: 0 }}
+                  to="/upload"
+                >
+                  <Button className={classes.navText}>Upload</Button>
+                </Link>
+              </div>
+              <Divider
+                className={classes.divider}
+                orientation="vertical"
+                flexItem
+              />
+              <div className="nav-button">
+                <Link to="/profile">
+                  <Button className={classes.navText}>{user.nickname}</Button>
+                </Link>
+              </div>
+              <Divider
+                className={classes.divider}
+                orientation="vertical"
+                flexItem
+              />
               <IconButton
                 color="inherit"
                 aria-controls={menuId}
@@ -172,7 +201,7 @@ const NavBar = () => {
               >
                 <SettingsIcon />
               </IconButton>
-            </span>
+            </div>
           )}
         </Toolbar>
       </AppBar>
