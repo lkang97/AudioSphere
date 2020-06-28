@@ -50,7 +50,7 @@ const MusicPlayer = () => {
   const currentSong = useSelector((state) => state.song);
   const [duration, setDuration] = useState(0);
   const [currTime, setCurrTime] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [volume, setVolume] = useState(30);
   const [mute, setMute] = useState(false);
 
@@ -176,6 +176,7 @@ const MusicPlayer = () => {
             onLoadedMetadata={handleMetadata}
             onPlaying={handleOnPlaying}
             onEnded={handleOnEnded}
+            autoPlay
           />
           {musicPlayer}
         </>

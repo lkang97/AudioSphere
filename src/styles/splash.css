@@ -48,3 +48,10 @@ div.MuiMobileStepper-dotActive {
   color: gray;
   font-size: 20px;
 }
+
+.songs-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}

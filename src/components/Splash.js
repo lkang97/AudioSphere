@@ -113,7 +113,7 @@ const Splash = () => {
           Here's what people are listening to on AudioSphere:
         </div>
         <div className="songs-container">
-          {songs.map((song) => {
+          {songs.slice(0, 10).map((song) => {
             return <SongCard song={song} key={song.id} />;
           })}
         </div>

@@ -9,6 +9,7 @@ div.MuiCardContent-root {
 
 .single-song-card {
   padding: 15px;
+  max-width: 170px;
 }
 
 button.song-play-button {
@@ -23,7 +24,11 @@ button.song-play-button :hover {
 }
 
 .song-img-area {
-  position: "relative";
   height: 170px;
   width: 170px;
+}
+
+#song-card-title {
+  overflow: hidden;
+  max-height: 32px;
 }

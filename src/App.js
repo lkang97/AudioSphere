@@ -13,6 +13,8 @@ import Splash from "../src/components/Splash";
 import PrivateRoute from "./components/PrivateRoute";
 import ExternalApi from "./components/ExternalApi";
 import Upload from "./components/Upload";
+import theme from "./components/Theme";
+import { ThemeProvider } from "@material-ui/core/styles";
 
 import "./styles/index.css";
 
@@ -24,23 +26,25 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {/* Don't forget to include the history module */}
-      <Router history={history}>
-        <header>
-          <NavBar />
-        </header>
-        <Switch>
-          <Route path="/" exact component={Splash} />
-          <PrivateRoute path="/profile" component={Profile} />
-          <PrivateRoute path="/external-api" component={ExternalApi} />
-          <PrivateRoute path="/upload" component={Upload} />
-        </Switch>
-        <footer>
-          <MusicPlayer />
-        </footer>
-      </Router>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        {/* Don't forget to include the history module */}
+        <Router history={history}>
+          <header>
+            <NavBar />
+          </header>
+          <Switch>
+            <Route path="/" exact component={Splash} />
+            <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute path="/external-api" component={ExternalApi} />
+            <PrivateRoute path="/upload" component={Upload} />
+          </Switch>
+          <footer>
+            <MusicPlayer />
+          </footer>
+        </Router>
+      </div>
+    </ThemeProvider>
   );
 }
 

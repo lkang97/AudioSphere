@@ -131,12 +131,14 @@ const NavBar = () => {
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar style={{ justifyContent: "space-between" }}>
-          <div id="logo-container">
-            <img src={logo} alt="logo" id="audiosphere-logo" />
-            <Typography className={classes.title} variant="h6" noWrap>
-              AudioSphere
-            </Typography>
-          </div>
+          <Link style={{ textDecoration: "none" }} to="/">
+            <div id="logo-container">
+              <img src={logo} alt="logo" id="audiosphere-logo" />
+              <Typography className={classes.title} variant="h6" noWrap>
+                AudioSphere
+              </Typography>
+            </div>
+          </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -161,45 +163,33 @@ const NavBar = () => {
 
           {isAuthenticated && (
             <div className="nav-actions">
-              <Link to="/">Home</Link>&nbsp;
-              {/* <Link to="/external-api">
-                <Button className={classes.navText}>External API</Button>
-              </Link> */}
-              <Divider
-                className={classes.divider}
-                orientation="vertical"
-                flexItem
-              />
               <div className="nav-button">
-                <Link
-                  style={{ textDecoration: "none", borderRight: 0 }}
-                  to="/upload"
-                >
+                <Link style={{ textDecoration: "none" }} to="/upload">
                   <Button className={classes.navText}>Upload</Button>
                 </Link>
               </div>
-              <Divider
+              {/* <Divider
                 className={classes.divider}
                 orientation="vertical"
                 flexItem
-              />
+              /> */}
               <div className="nav-button">
-                <Link to="/profile">
+                <Link style={{ textDecoration: "none" }} to="/profile">
                   <Button className={classes.navText}>{user.nickname}</Button>
                 </Link>
               </div>
-              <Divider
+              {/* <Divider
                 className={classes.divider}
                 orientation="vertical"
                 flexItem
-              />
+              /> */}
               <IconButton
                 color="inherit"
                 aria-controls={menuId}
                 aria-haspopup="true"
                 onClick={handleProfileMenuOpen}
               >
-                <SettingsIcon />
+                <SettingsIcon style={{ color: "#003059" }} />
               </IconButton>
             </div>
           )}

@@ -12,6 +12,7 @@ import ImageIcon from "@material-ui/icons/Image";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
 
 import "../styles/upload.css";
 
@@ -34,22 +35,23 @@ const Upload = () => {
   const [file, setFile] = useState();
 
   const uploadAudio = async (e) => {
-    let formData = new FormData();
-    formData.append("file", e.target.files[0]);
+    // let formData = new FormData();
+    // formData.append("file", e.target.files[0]);
 
-    let token = await getTokenSilently();
+    // let token = await getTokenSilently();
 
-    const response = await fetch(`${api}/upload`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
-    if (response.ok) {
-      const songUrl = await response.json();
-      setSongUrl(songUrl);
-    }
+    // const response = await fetch(`${api}/upload`, {
+    //   method: "POST",
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    //   body: formData,
+    // });
+    // if (response.ok) {
+    //   const songUrl = await response.json();
+    //   setSongUrl(songUrl);
+    // }
+    setSongUrl("test");
   };
 
   const handleImage = async (e) => {
@@ -111,85 +113,96 @@ const Upload = () => {
 
   return (
     <div className="upload-container">
-      <div className="dnd-container">
-        <h2>Drag and drop your audio file here</h2>
-        <form className="upload-form" onSubmit={handleSubmit}>
-          <FormControl>
-            <Button className="upload-button" variant="contained">
-              <input
-                accept="audio/*"
-                style={{ display: "none" }}
-                type="file"
-                id="raised-button-audio"
-                onChange={uploadAudio}
-              ></input>
-              <label htmlFor="raised-button-audio">
-                or click here to upload.
-              </label>
-            </Button>
-          </FormControl>
-          <div className="image-container">
-            <Card className={classes.imagePreview}>
-              {file ? (
-                <CardMedia className={classes.imagePreview}>
-                  <img
-                    src={URL.createObjectURL(file)}
-                    alt="preview"
-                    width="100%"
-                    height="auto"
+      <form className="upload-form" onSubmit={handleSubmit}>
+        {!songUrl ? (
+          <div className="dnd-container">
+            <h2 className="form-text">Drag and drop your audio file here</h2>
+            <FormControl>
+              <Button className="upload-button" variant="contained">
+                <input
+                  accept="audio/*"
+                  style={{ display: "none" }}
+                  type="file"
+                  id="raised-button-audio"
+                  onChange={uploadAudio}
+                ></input>
+                <label htmlFor="raised-button-audio">
+                  or click here to upload.
+                </label>
+              </Button>
+            </FormControl>
+          </div>
+        ) : (
+          <div className="upload-details-container">
+            <div className="image-container">
+              <Card className={classes.imagePreview}>
+                {file ? (
+                  <CardMedia className={classes.imagePreview}>
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt="preview"
+                      width="100%"
+                      height="auto"
+                    />
+                  </CardMedia>
+                ) : (
+                  <ImageIcon className={classes.imagePreview} color="primary" />
+                )}
+              </Card>
+              <IconButton style={{ height: 50 }}>
+                <input
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  type="file"
+                  id="raised-button-file"
+                  onChange={handleImage}
+                ></input>
+                <label htmlFor="raised-button-file">
+                  <AddAPhotoIcon variant="raised"></AddAPhotoIcon>
+                </label>
+              </IconButton>
+            </div>
+            <div className="upload-song-details">
+              <FormControl>
+                <TextField
+                  label="Song Title"
+                  InputLabelProps={{
+                    style: { color: "#003059" },
+                  }}
+                  InputProps={{ style: { color: "darkgray" } }}
+                  autoFocus
+                  type="text"
+                  onChange={handleTitle}
+                />
+              </FormControl>
+              <FormControl color="primary">
+                <TextField
+                  label="Song Genre"
+                  InputProps={{ style: { color: "darkgray" } }}
+                  type="text"
+                  onChange={handleGenre}
+                />
+              </FormControl>
+              <div className="form-field">
+                <FormControl color="primary">
+                  <TextField
+                    label="Song Description"
+                    InputProps={{ style: { color: "darkgray" } }}
+                    type="text"
+                    multiline
+                    onChange={handleDesc}
                   />
-                </CardMedia>
-              ) : (
-                <ImageIcon className={classes.imagePreview} color="primary" />
-              )}
-            </Card>
-            <IconButton style={{ height: 50 }}>
-              <input
-                accept="image/*"
-                style={{ display: "none" }}
-                type="file"
-                id="raised-button-file"
-                onChange={handleImage}
-              ></input>
-              <label htmlFor="raised-button-file">
-                <AddAPhotoIcon variant="raised"></AddAPhotoIcon>
-              </label>
-            </IconButton>
+                </FormControl>
+              </div>
+            </div>
+            <div>
+              <Button color="primary" variant="contained" type="submit">
+                Submit
+              </Button>
+            </div>
           </div>
-          {/* {songUrl ? ( */}
-          <div className="upload-song-details">
-            <FormControl>
-              <TextField
-                label="Song Title"
-                type="text"
-                onChange={handleTitle}
-              />
-            </FormControl>
-            <FormControl>
-              <TextField
-                label="Song Genre"
-                type="text"
-                onChange={handleGenre}
-              />
-            </FormControl>
-            <FormControl>
-              <TextField
-                label="Song Description"
-                type="text"
-                onChange={handleDesc}
-              />
-            </FormControl>
-          </div>
-          {/* ) : (
-            <div></div>
-          )} */}
-          <div>
-            <Button color="primary" variant="contained" type="submit">
-              Submit
-            </Button>
-          </div>
-        </form>
-      </div>
+        )}
+      </form>
     </div>
   );
 };

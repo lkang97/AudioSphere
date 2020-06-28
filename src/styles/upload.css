@@ -2,15 +2,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border: 2px solid #003059;
+  min-width: 500px;
+  min-height: 300px;
+  background-color: darkgrey;
 }
 
 .dnd-container {
-  background-color: gray;
-  padding: 10px;
+  background-color: darkgrey;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border-radius: 5px;
+  justify-content: center;
 }
 
 .upload-form .upload-song-details {
@@ -21,8 +25,8 @@
 
 .image-container {
   display: flex;
-  flex-direction: "row";
-  justify-content: "center";
+  flex-direction: row;
+  justify-content: center;
   padding: 10px;
   align-items: center;
 }
@@ -31,3 +35,16 @@
   width: 150px;
   height: 150px;
 } */
+
+.form-text {
+  color: #003059;
+}
+
+.upload-details-container {
+  width: 100vh;
+  padding: 20px;
+}
+
+.form-field {
+  width: 100vh;
+}

@@ -12,7 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
 
-import img1 from "../images/splash-img1.jpg";
+// import img1 from "../images/splash-img1.jpg";
 import "../styles/song-card.css";
 import { setCurrentSong } from "../store/state";
 
@@ -48,17 +48,17 @@ const SongCard = ({ song }) => {
       <Card className={classes.root}>
         <CardActionArea>
           <div className="song-img-area">
-            <CardMedia className={classes.media} image={img1} />
+            <CardMedia className={classes.media} image={song.image_url} />
             <IconButton
               className="song-play-button"
-              style={{ backgroundColor: "blue" }}
+              style={{ backgroundColor: "#003059" }}
               onClick={handleClick}
             >
               {isClicked ? <PauseCircleFilledIcon /> : <PlayArrowIcon />}
             </IconButton>
           </div>
           <CardContent>
-            <Typography variant="h6" component="h2">
+            <Typography id="song-card-title" variant="h6" component="h2">
               {song.title}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
