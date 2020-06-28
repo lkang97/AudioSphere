@@ -38,7 +38,7 @@ const SingleSong = ({ song }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const { user, loading, getTokenSilently } = useAuth0();
-  console.log(song);
+
   const handlePlay = () => {
     dispatch(setCurrentSong(song));
     setIsClicked(!isClicked);
@@ -46,7 +46,7 @@ const SingleSong = ({ song }) => {
 
   useEffect(() => {
     const getFavorites = () => {
-      if (user && song.favorites) {
+      if (user) {
         song.favorites.forEach((favorite) => {
           favorite.id === user.userId
             ? setIsFavorited(true)
@@ -106,7 +106,11 @@ const SingleSong = ({ song }) => {
               </div>
               <div>
                 <IconButton onClick={handleFavorite}>
-                  {isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                  {isFavorited ? (
+                    <FavoriteIcon id="song-favorited" />
+                  ) : (
+                    <FavoriteBorderIcon id="song-not-favorited" />
+                  )}
                 </IconButton>
               </div>
             </div>

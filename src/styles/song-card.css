@@ -66,3 +66,11 @@ button.song-play-button :hover {
   justify-content: space-between;
   align-items: center;
 }
+
+#song-favorited {
+  color: red;
+}
+
+#song-not-favorited {
+  color: black;
+}

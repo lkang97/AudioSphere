@@ -1,9 +1,30 @@
-import React, { Fragment } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth0 } from "../react-auth0-spa";
 import "../styles/profile.css";
+import { api } from "../config";
+import SingleSong from "./SingleSong";
 
 const Profile = () => {
-  const { loading, user } = useAuth0();
+  const { loading, user, getTokenSilently } = useAuth0();
+  const [userSongs, setUserSongs] = useState([]);
+  const [favoriteSongs, setFavoriteSongs] = useState([]);
+  const [fetched, setFetched] = useState(false);
+
+  useEffect(() => {
+    const loadSets = async () => {
+      const token = await getTokenSilently();
+      const res = await fetch(`${api}/users/songs`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      setFetched(true);
+      setUserSongs(data.userSongs);
+      setFavoriteSongs(data.favoriteSongs);
+    };
+    loadSets();
+  }, [getTokenSilently]);
 
   if (loading || !user) {
     return <div>Loading...</div>;
@@ -16,7 +37,12 @@ const Profile = () => {
         <h2>{user.nickname}</h2>
       </div>
       <p>{user.email}</p>
-      <code>{JSON.stringify(user, null, 2)}</code>
+      <div>
+        {fetched &&
+          userSongs.map((song) => {
+            return <SingleSong song={song} key={song.id} />;
+          })}
+      </div>
     </div>
   );
 };
