@@ -43,3 +43,26 @@ button.song-play-button :hover {
   width: 70vw;
   min-height: 300px;
 }
+
+.song-details-container {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+#play-btn {
+  margin-right: 20px;
+  margin-left: 5px;
+}
+
+#play-btn :hover {
+  color: white;
+}
+
+.song-action-area {
+  display: flex;
+  flex-direction: row;
+  width: 680px;
+  justify-content: space-between;
+  align-items: center;
+}

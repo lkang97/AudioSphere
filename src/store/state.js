@@ -14,10 +14,12 @@ const initialState = {
 const SET_USER = "SET_USER";
 const SET_SONGS = "SET_SONGS";
 const SET_CURRENT_SONG = "SET_CURRENT_SONG";
+const SET_PLAYING = "SET_PLAYING";
 
 export const setUserId = (user) => ({ type: SET_USER, user });
 export const setSongs = (songs) => ({ type: SET_SONGS, songs });
 export const setCurrentSong = (song) => ({ type: SET_CURRENT_SONG, song });
+export const setPlaying = (bool) => ({ type: SET_PLAYING, bool });
 
 export default function reducer(state = initialState, action) {
   let newState = { ...state };
@@ -32,6 +34,10 @@ export default function reducer(state = initialState, action) {
     }
     case SET_CURRENT_SONG: {
       newState.song = action.song;
+      return newState;
+    }
+    case SET_PLAYING: {
+      newState.song = action.bool;
       return newState;
     }
     default: {
