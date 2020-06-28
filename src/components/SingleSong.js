@@ -7,13 +7,11 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
+import Typography from "@material-ui/core/Typography";
 
-// import img1 from "../images/splash-img1.jpg";
-import "../styles/song-card.css";
 import { setCurrentSong } from "../store/state";
 
 const useStyles = makeStyles({
@@ -21,19 +19,17 @@ const useStyles = makeStyles({
     maxWidth: 345,
   },
   media: {
-    height: 170,
-    width: 170,
+    height: 250,
+    width: 250,
   },
 });
 
-const SongCard = ({ song }) => {
-  const { user, loading, isAuthenticated } = useAuth0();
-
-  const classes = useStyles();
+const SingleSong = ({ song }) => {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const [isClicked, setIsClicked] = useState(false);
+  const { user, loading } = useAuth0();
 
-  // Set the current playing song in the state
   const handleClick = () => {
     if (user) {
       dispatch(setCurrentSong(song));
@@ -44,7 +40,7 @@ const SongCard = ({ song }) => {
   };
 
   return (
-    <div className="single-song-card">
+    <div>
       <Card className={classes.root}>
         <CardActionArea>
           <div className="song-img-area">
@@ -71,4 +67,4 @@ const SongCard = ({ song }) => {
   );
 };
 
-export default SongCard;
+export default SingleSong;

@@ -1,4 +1,4 @@
-#splash-container {
+#splash-container #main-container {
   display: flex;
   flex-direction: column;
   align-items: center;
