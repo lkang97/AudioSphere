@@ -11,16 +11,20 @@ import IconButton from "@material-ui/core/IconButton";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
 import Typography from "@material-ui/core/Typography";
+import "../styles/song-card.css";
 
 import { setCurrentSong } from "../store/state";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    height: "250px",
+    display: "flex",
+    flexDirection: "row",
   },
   media: {
     height: 250,
     width: 250,
+    padding: 0,
   },
 });
 
@@ -40,19 +44,12 @@ const SingleSong = ({ song }) => {
   };
 
   return (
-    <div>
+    <div id="single-container">
       <Card className={classes.root}>
-        <CardActionArea>
-          <div className="song-img-area">
-            <CardMedia className={classes.media} image={song.image_url} />
-            <IconButton
-              className="song-play-button"
-              style={{ backgroundColor: "#003059" }}
-              onClick={handleClick}
-            >
-              {isClicked ? <PauseCircleFilledIcon /> : <PlayArrowIcon />}
-            </IconButton>
-          </div>
+        <div id="image-container">
+          <CardMedia className={classes.media} image={song.image_url} />
+        </div>
+        <div>
           <CardContent>
             <Typography id="song-card-title" variant="h6" component="h2">
               {song.title}
@@ -61,7 +58,7 @@ const SingleSong = ({ song }) => {
               {song.user.nickname}
             </Typography>
           </CardContent>
-        </CardActionArea>
+        </div>
       </Card>
     </div>
   );

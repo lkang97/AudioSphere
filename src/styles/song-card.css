@@ -32,3 +32,14 @@ button.song-play-button :hover {
   overflow: hidden;
   max-height: 32px;
 }
+
+#image-container {
+  height: 250px;
+  width: 250px;
+  padding: 0px;
+}
+
+#single-container {
+  width: 70vw;
+  min-height: 300px;
+}
