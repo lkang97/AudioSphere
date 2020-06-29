@@ -16,6 +16,7 @@ import "../styles/song-card.css";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { api } from "../config";
+import WaveSurfer from "wavesurfer.js";
 
 import { setCurrentSong } from "../store/state";
 
@@ -38,6 +39,24 @@ const SingleSong = ({ song }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const { user, loading, getTokenSilently } = useAuth0();
+
+  useEffect(() => {
+    const loadWaveform = async () => {
+      const audio = document.getElementById(`audio-${song.id}`);
+      var waveform = WaveSurfer.create({
+        container: `#waveform-${song.id}`,
+        waveColor: "white",
+        progressColor: "purple",
+        backgroundColor: "black",
+        height: 60,
+        cursorColor: "blue",
+        barWidth: 2,
+      });
+
+      waveform.load(song.song_url);
+    };
+    loadWaveform();
+  }, []);
 
   const handlePlay = () => {
     dispatch(setCurrentSong(song));
@@ -113,6 +132,14 @@ const SingleSong = ({ song }) => {
                   )}
                 </IconButton>
               </div>
+            </div>
+            <div
+              id={`waveform-${song.id}`}
+              className="waveform-container"
+            ></div>
+            <audio id={`audio-${song.id}`} src={song.song_url} />
+            <div>
+              <div>Comments:</div>
             </div>
           </CardContent>
         </div>
