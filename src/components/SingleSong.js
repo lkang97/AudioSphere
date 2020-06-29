@@ -23,13 +23,13 @@ import { setCurrentSong } from "../store/state";
 
 const useStyles = makeStyles({
   root: {
-    height: "250px",
+    height: "200px",
     display: "flex",
     flexDirection: "row",
   },
   media: {
-    height: 250,
-    width: 250,
+    height: 200,
+    width: 200,
     padding: 0,
   },
 });
@@ -46,11 +46,10 @@ const SingleSong = ({ song, setFetched }) => {
       const audio = document.getElementById(`audio-${song.id}`);
       var waveform = WaveSurfer.create({
         container: `#waveform-${song.id}`,
-        waveColor: "white",
-        progressColor: "purple",
-        backgroundColor: "black",
-        height: 60,
-        cursorColor: "blue",
+        waveColor: "#003059",
+        progressColor: "black",
+        height: 100,
+        cursorColor: "black",
         barWidth: 2,
       });
 
@@ -161,9 +160,6 @@ const SingleSong = ({ song, setFetched }) => {
               className="waveform-container"
             ></div>
             <audio id={`audio-${song.id}`} src={song.song_url} />
-            <div>
-              <div>Comments:</div>
-            </div>
           </CardContent>
         </div>
       </Card>
