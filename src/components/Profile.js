@@ -66,7 +66,7 @@ const Profile = () => {
       setFavoriteSongs(data.favoriteSongs);
     };
     loadSets();
-  }, [getTokenSilently]);
+  }, [fetched]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -104,14 +104,16 @@ const Profile = () => {
       <TabPanel value={value} index={0}>
         <div className="songs-container">
           {fetched &&
-            userSongs.map((song) => <SingleSong song={song} key={song.id} />)}
+            userSongs.map((song) => (
+              <SingleSong song={song} key={song.id} setFetched={setFetched} />
+            ))}
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className="songs-container">
           {fetched &&
             favoriteSongs.map((song) => (
-              <SingleSong song={song} key={song.id} />
+              <SingleSong song={song} key={song.id} setFetched={setFetched} />
             ))}
         </div>
       </TabPanel>

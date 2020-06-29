@@ -17,6 +17,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { api } from "../config";
 import WaveSurfer from "wavesurfer.js";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import { setCurrentSong } from "../store/state";
 
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-const SingleSong = ({ song }) => {
+const SingleSong = ({ song, setFetched }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [isClicked, setIsClicked] = useState(false);
@@ -93,6 +94,23 @@ const SingleSong = ({ song }) => {
     }
   };
 
+  const handleDelete = async () => {
+    const token = await getTokenSilently();
+    const res = await fetch(`${api}/songs/${song.id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      alert("authorization denied");
+    } else {
+      alert("Set was successfully deleted");
+      setFetched(false);
+    }
+  };
+
   return (
     <div id="single-container">
       <Card className={classes.root}>
@@ -124,13 +142,18 @@ const SingleSong = ({ song }) => {
                 </div>
               </div>
               <div>
-                <IconButton onClick={handleFavorite}>
+                <IconButton className="buttons" onClick={handleFavorite}>
                   {isFavorited ? (
                     <FavoriteIcon id="song-favorited" />
                   ) : (
                     <FavoriteBorderIcon id="song-not-favorited" />
                   )}
                 </IconButton>
+                {user.userId === song.user_id && (
+                  <IconButton className="buttons" onClick={handleDelete}>
+                    <DeleteIcon id="delete-btn" />
+                  </IconButton>
+                )}
               </div>
             </div>
             <div
