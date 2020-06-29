@@ -8,6 +8,7 @@
   border-radius: 50%;
   height: 200px;
   width: 200px;
+  margin: 10px 20px;
 }
 
 .profile-text {
@@ -22,4 +23,10 @@
 
 button.MuiTab-textColorPrimary {
   color: darkgray;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
 }

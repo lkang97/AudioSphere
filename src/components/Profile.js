@@ -80,8 +80,10 @@ const Profile = () => {
     <>
       <div className="user-info-container">
         <img className="profile-image" src={user.picture} alt="Profile" />
-        <h2 className="profile-text">{user.nickname}</h2>
-        <p className="profile-text">{user.email}</p>
+        <div className="user-info">
+          <h2 className="profile-text">{`Username: ${user.nickname}`}</h2>
+          <div className="profile-text">{`Email: ${user.email}`}</div>
+        </div>
       </div>
       <Paper square id="profile-tabs-container">
         <Tabs
