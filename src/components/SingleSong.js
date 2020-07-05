@@ -51,6 +51,7 @@ const SingleSong = ({ song, setFetched }) => {
         height: 100,
         cursorColor: "black",
         barWidth: 2,
+        pixelRatio: 1,
       });
 
       waveform.load(song.song_url);

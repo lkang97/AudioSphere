@@ -17,7 +17,14 @@
   justify-content: center;
 }
 
-.upload-form .upload-song-details {
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center;
+}
+
+.upload-song-details {
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -41,10 +48,17 @@
 }
 
 .upload-details-container {
-  width: 100vh;
+  width: 60vw;
   padding: 20px;
 }
 
 .form-field {
-  width: 100vh;
+  width: 60vw;
+}
+
+#submit-btn {
+  display: flex;
+  align-self: center;
+  flex-direction: row;
+  justify-content: center;
 }

@@ -51,10 +51,12 @@ const MusicPlayer = () => {
   const [duration, setDuration] = useState(0);
   const [currTime, setCurrTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [volume, setVolume] = useState(30);
+  const [volume, setVolume] = useState(0.5);
   const [mute, setMute] = useState(false);
 
   const handleVolChange = (event, newValue) => {
+    let audio = document.getElementById("audio");
+    audio.volume = newValue;
     setVolume(newValue);
   };
 
@@ -91,7 +93,9 @@ const MusicPlayer = () => {
     setCurrTime(newValue);
   };
 
-  const handleOnEnded = () => {};
+  const handleOnEnded = () => {
+    dispatch(setCurrentSong(null));
+  };
 
   const convertTime = () => {};
   const musicPlayer = (
@@ -125,21 +129,21 @@ const MusicPlayer = () => {
               </IconButton>
             </div>
             <div className="song-slider">
-              {currentSong ? (
+              {/* {currentSong ? (
                 <div className="song-duration">{currTime}</div>
               ) : (
                 <div className="song-duration">--.--</div>
-              )}
+              )} */}
               <Slider
                 value={currTime}
                 onChange={handleSongSlide}
                 max={duration}
               />
-              {currentSong ? (
+              {/* {currentSong ? (
                 <div className="song-duration">{duration}</div>
               ) : (
                 <div className="song-duration">--.--</div>
-              )}
+              )} */}
             </div>
           </div>
           <div id="song-volume">
@@ -149,6 +153,9 @@ const MusicPlayer = () => {
               </Grid>
               <Grid item xs>
                 <Slider
+                  min={0.0}
+                  step={0.1}
+                  max={1.0}
                   value={volume}
                   onChange={handleVolChange}
                   aria-labelledby="continuous-slider"

@@ -139,7 +139,7 @@ const NavBar = () => {
               </Typography>
             </div>
           </Link>
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -151,7 +151,7 @@ const NavBar = () => {
               }}
               inputProps={{ "aria-label": "search" }}
             />
-          </div>
+          </div> */}
           {!isAuthenticated && (
             <Button
               className={classes.navText}

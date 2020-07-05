@@ -35,23 +35,23 @@ const Upload = () => {
   const [file, setFile] = useState();
 
   const uploadAudio = async (e) => {
-    // let formData = new FormData();
-    // formData.append("file", e.target.files[0]);
+    let formData = new FormData();
+    formData.append("file", e.target.files[0]);
 
-    // let token = await getTokenSilently();
-
-    // const response = await fetch(`${api}/upload`, {
-    //   method: "POST",
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    //   body: formData,
-    // });
-    // if (response.ok) {
-    //   const songUrl = await response.json();
-    //   setSongUrl(songUrl);
-    // }
-    setSongUrl("test");
+    let token = await getTokenSilently();
+    setSongUrl("1");
+    const response = await fetch(`${api}/upload`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+    if (response.ok) {
+      const songUrl = await response.json();
+      setSongUrl(songUrl);
+    }
+    // setSongUrl("test");
   };
 
   const handleImage = async (e) => {
@@ -100,13 +100,14 @@ const Upload = () => {
           genre: songGenre,
           description: songDesc,
           image_url: imgUrl,
-          song_url: "songUrl",
+          song_url: songUrl,
           created_at: new Date(),
         }),
       });
 
       if (uploadRes.ok) {
         const songObj = await uploadRes.json();
+        window.location.href = `/profile`;
       }
     }
   };
@@ -169,7 +170,7 @@ const Upload = () => {
                   InputLabelProps={{
                     style: { color: "#003059" },
                   }}
-                  InputProps={{ style: { color: "darkgray" } }}
+                  InputProps={{ style: { color: "black" } }}
                   autoFocus
                   type="text"
                   onChange={handleTitle}
@@ -178,24 +179,23 @@ const Upload = () => {
               <FormControl color="primary">
                 <TextField
                   label="Song Genre"
-                  InputProps={{ style: { color: "darkgray" } }}
+                  InputProps={{ style: { color: "black" } }}
                   type="text"
                   onChange={handleGenre}
                 />
               </FormControl>
-              <div className="form-field">
-                <FormControl color="primary">
-                  <TextField
-                    label="Song Description"
-                    InputProps={{ style: { color: "darkgray" } }}
-                    type="text"
-                    multiline
-                    onChange={handleDesc}
-                  />
-                </FormControl>
-              </div>
+
+              <FormControl color="primary">
+                <TextField
+                  label="Song Description"
+                  InputProps={{ style: { color: "black" } }}
+                  type="text"
+                  multiline
+                  onChange={handleDesc}
+                />
+              </FormControl>
             </div>
-            <div>
+            <div id="submit-btn">
               <Button color="primary" variant="contained" type="submit">
                 Submit
               </Button>
